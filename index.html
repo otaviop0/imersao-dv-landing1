@@ -11,14 +11,21 @@
     <link rel="preconnect" href="fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <h2>Imersão <span class="highlight">DV</span></h2>
-            </div>
+<div class="nav-logo">
+    <a href="#home">
+        <img src="img/logo/logo_dv_branco.png.png" alt="Imersão DV Logo" class="logo logo-dark">
+        <img src="img/logo/logo_dv_azul.png.png" alt="Imersão DV Logo" class="logo logo-light">
+    </a>
+</div>
+
             <ul class="nav-menu" id="nav-menu">
                 <li class="nav-item">
                     <a href="#home" class="nav-link">Início</a>
@@ -82,33 +89,18 @@
                     </button>
                 </div>
             </div>
-            <div class="hero-visual">
-                <div class="floating-card card-1">
-                    <div class="card-icon">📈</div>
-                    <div class="card-content">
-                        <h4>Aumento da produtividade</h4>
-                        <p>e em conversões de vendas</p>
-                    </div>
-                </div>
-                <div class="floating-card card-2">
-                    <div class="card-icon">🎯</div>
-                    <div class="card-content">
-                        <h4>Técnicas Avançadas</h4>
-                        <p>de fechamento</p>
-                    </div>
-                </div>
-                <div class="floating-card card-3">
-                    <div class="card-icon">🚀</div>
-                    <div class="card-content">
-                        <h4>Resultados</h4>
-                        <p>comprovados</p>
-                    </div>
-                </div>
-                <div class="hero-shape"></div>
-            </div>
-        </div>
+            <div class="hero-visual-carousel">
     </section>
-
+    <!-- Carrossel visual do evento -->
+<section class="carousel-section">
+  <div class="container">
+    <div class="carousel autoplay">
+      <div><img src="img/carrossel/palestra_1.jpeg" alt="Slide 1" /></div>
+      <div><img src="img/carrossel/palestra_2.jpg" alt="Slide 2" /></div>
+      <div><img src="img/carrossel/palestra_3.jpg" alt="Slide 3" /></div>
+    </div>
+  </div>
+</section>
     <!-- About Section -->
     <section id="sobre" class="about">
         <div class="container">
@@ -472,6 +464,9 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <!-- jQuery + Slick JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
