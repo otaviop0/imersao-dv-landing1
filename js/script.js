@@ -79,12 +79,13 @@ document.querySelectorAll(".feature-card, .speaker-card, .timeline-item").forEac
   observer.observe(el)
 })
 
-// Counter animation for stats
+// Counter animation for stats - FIXED
 const animateCounters = () => {
   const counters = document.querySelectorAll(".stat-number")
 
   counters.forEach((counter) => {
-    const target = Number.parseInt(counter.textContent.replace(/\D/g, ""))
+    const target = Number.parseInt(counter.getAttribute("data-target"))
+    const suffix = counter.getAttribute("data-suffix") || ""
     const duration = 2000 // 2 seconds
     const step = target / (duration / 16) // 60fps
     let current = 0
@@ -92,15 +93,10 @@ const animateCounters = () => {
     const updateCounter = () => {
       current += step
       if (current < target) {
-        counter.textContent = Math.floor(current) + counter.textContent.replace(/\d/g, "").replace(/\+/g, "")
-        if (counter.textContent.includes("+")) {
-          counter.textContent = Math.floor(current) + "+"
-        } else if (counter.textContent.includes("h")) {
-          counter.textContent = Math.floor(current) + "h"
-        }
+        counter.textContent = Math.floor(current) + suffix
         requestAnimationFrame(updateCounter)
       } else {
-        counter.textContent = counter.textContent // Reset to original
+        counter.textContent = target + suffix
       }
     }
 
@@ -217,60 +213,15 @@ const handleScroll = debounce(() => {
 
 window.addEventListener("scroll", handleScroll)
 
-// Theme toggle functionality
-const themeToggle = document.getElementById("theme-toggle")
+// Dark mode detection (automatic only)
 const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)")
-
-// Function to set theme
-const setTheme = (theme) => {
-  document.documentElement.setAttribute("data-theme", theme)
-  localStorage.setItem("theme", theme)
-
-  // Update button icons
-  const moonIcon = themeToggle.querySelector(".fa-moon")
-  const sunIcon = themeToggle.querySelector(".fa-sun")
-
-  if (theme === "dark") {
-    moonIcon.style.display = "none"
-    sunIcon.style.display = "inline-block"
-  } else {
-    moonIcon.style.display = "inline-block"
-    sunIcon.style.display = "none"
-  }
-}
-
-// Check for saved theme preference or use device preference
-const savedTheme = localStorage.getItem("theme")
-if (savedTheme) {
-  setTheme(savedTheme)
-} else {
-  setTheme(prefersDarkScheme.matches ? "dark" : "light")
-}
-
-// Toggle theme when button is clicked
-themeToggle.addEventListener("click", () => {
-  const currentTheme = document.documentElement.getAttribute("data-theme") || "light"
-  setTheme(currentTheme === "light" ? "dark" : "light")
-})
 
 // Listen for changes in system preference
 prefersDarkScheme.addEventListener("change", (e) => {
-  if (!localStorage.getItem("theme")) {
-    setTheme(e.matches ? "dark" : "light")
-  }
+  console.log("System switched to " + (e.matches ? "dark" : "light") + " mode")
 })
 
-// Initialize theme toggle button state
-window.addEventListener("DOMContentLoaded", () => {
-  const currentTheme = document.documentElement.getAttribute("data-theme") || "light"
-  const moonIcon = themeToggle.querySelector(".fa-moon")
-  const sunIcon = themeToggle.querySelector(".fa-sun")
-
-  if (currentTheme === "dark") {
-    moonIcon.style.display = "none"
-    sunIcon.style.display = "inline-block"
-  } else {
-    moonIcon.style.display = "inline-block"
-    sunIcon.style.display = "none"
-  }
+// Log initial color scheme on page load
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Initial mode: " + (prefersDarkScheme.matches ? "dark" : "light"))
 })
